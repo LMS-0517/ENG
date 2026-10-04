@@ -1,0 +1,67 @@
+/* Higgsfield equipment adapter. Engine remains the only sizing authority. */
+(()=>{
+  const build=GL3D.buildWorld;
+  GL3D.buildWorld=function(shadow){
+    this.higgsfieldScene=false;build.call(this,shadow);this.higgsfieldApplied=false;
+    if(this.higgsfield)this.higgsfield.module.applyLibrary(this,this.higgsfield.library);
+  };
+  const fit=GL3D.fitView,cam=GL3D.applyCam,tick=GL3D.tick;
+  // 조감도 — 창고 전체가 화면에 들어오게
+  GL3D.overview=function(){
+    if(!this.higgsfieldScene){fit.call(this);return;}
+    this.center.copy(this.homeCenter);this.sph.theta=-2.43;this.sph.phi=1.06;
+    // 바닥 판 가장자리까지 넣으면 랙이 작게 보인다 — 랙이 화면을 꽉 채우도록 당긴다(가장자리는 일부 잘려도 됨)
+    // 가로 전체화면은 입출고 설비(앞쪽)까지 들어오게 조금 덜 당긴다
+    this.sph.r=this.fitRadius(this.bbox,this.sph.theta,this.sph.phi,this.camera.aspect)*(this.camera.aspect>1.2?0.75:0.6);
+    this.vel.t=this.vel.p=0;this.render();
+  };
+  // 기본 시점 = 조감도(창고 전체). 설비 쪽 확대(D안)는 너무 가깝다는 의견으로 되돌림
+  GL3D.fitView=function(){
+    if(!this.higgsfieldScene)return fit.call(this);
+    this.overview();
+  };
+
+  GL3D.applyCam=function(){cam.call(this);if(this.higgsfieldScene&&this.scene?.fog){this.scene.fog.near=this.camera.far*.85;this.scene.fog.far=this.camera.far;}};
+  GL3D.tick=function(t){tick.call(this,t);if(this.higgsfieldScene){this.actors.shuttles.forEach((s,i)=>{s.position.y+=.2;const load=this.actors.shuttleLoad[i];if(load)load.position.y=s.position.y+.515;});}};
+  const preset=GL3D.preset;
+  GL3D.preset=function(k){
+    preset.call(this,k);
+    if(k==='lift'&&this.higgsfieldApplied){
+      const T=this.THREE,A=this.anchors;
+      const box=new T.Box3(new T.Vector3(-3.2,0,A.convStart.z-1),new T.Vector3(2,this.D.rackH+1.6,A.convEnd.z+1.5));
+      box.getCenter(this.center);this.sph.r=this.fitRadius(box,this.sph.theta,this.sph.phi,this.camera.aspect);this.render();
+    }
+  };
+  const init=SIM3D.init,reset=SIM3D.reset;
+  let generation=0,pending=null;
+  SIM3D.reset=function(){generation++;pending=null;reset.call(this);};
+  SIM3D.init=function(){
+    if(this.inited)return Promise.resolve();
+    if(pending)return pending;
+    const current=generation;
+    const task=(async()=>{
+      const badge=document.getElementById('simRenderer');
+      if(badge)badge.textContent='Higgsfield 모델 준비 중';
+      GL3D.higgsfield=null;
+      try{
+        const [three,module]=await Promise.all([import('./vendor/three.module.min.js'),import('./higgsfield-models.js?v=3.0.4')]);
+        const library=await module.loadLibrary();
+        if(current!==generation)return;
+        this.threeMod=three;GL3D.higgsfield={module,library};
+      }catch(error){
+        if(current!==generation)return;
+        console.warn('Higgsfield 모델을 불러오지 못해 기본 모델을 사용합니다.',error);
+      }
+      if(current!==generation)return;
+      await init.call(this);
+      if(current!==generation)return;
+      const ready=this.engine===GL3D&&GL3D.higgsfieldApplied;
+      if(badge&&this.engine===GL3D){badge.textContent=ready?'Higgsfield 장면 · 입력값 반영':'기본 3D · 모델 로딩 실패';badge.dataset.model=ready?'higgsfield':'fallback';}
+      if(ready){
+        const note=document.getElementById('simNote');if(note)note.innerHTML=note.innerHTML.replace(' · 서 있는 작업자(키 1.7m)가 크기 기준입니다.',' · 랙과 화물은 입력 규격에 맞춘 크기입니다.');
+        GL3D.render();
+      }
+    })();
+    pending=task;task.finally(()=>{if(pending===task)pending=null;});return task;
+  };
+})();
