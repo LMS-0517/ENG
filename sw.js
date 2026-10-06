@@ -4,7 +4,7 @@
    ★ activate 에서는 자기 접두사(tspg-eng-)로 시작하는 캐시만 정리한다 —
      전체를 지우면 같은 사이트의 다른 앱(eng·eng2 등) 오프라인 캐시까지 날아간다. */
 const PREFIX = "tspg-eng-";
-const CACHE  = PREFIX + "3.0.1010.8";
+const CACHE  = PREFIX + "3.0.1010.9";
 const APP_HTML = "index.html";
 
 const ASSETS = [
