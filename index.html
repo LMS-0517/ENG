@@ -273,7 +273,14 @@ a.btn{text-decoration:none}
 .solu .top .why{font-size:12px;color:var(--ink-soft);margin-top:5px}
 .solu .body{padding:15px 17px}
 .atls-types{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:12px 12px 0}
-.atls-types figure{margin:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+.atls-types figure{margin:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;position:relative;cursor:pointer}
+.atls-types figure:active{transform:scale(.97)}
+.atls-types .play{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;
+  background:rgba(29,45,61,.78);color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center;padding-left:2px;pointer-events:none;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.atls-more{padding:8px 12px 0}
+.atls-more button{width:100%;font-family:inherit;font-size:12.5px;font-weight:700;color:var(--ink-soft);background:var(--panel-2);
+  border:1px solid var(--line);border-radius:10px;padding:9px 10px;cursor:pointer}
+.atls-more button:active{transform:scale(.98)}
 .atls-types img{display:block;width:100%;aspect-ratio:9/5;object-fit:cover}
 .atls-types figcaption{font-size:10.5px;font-weight:700;text-align:center;padding:4px 2px;background:var(--panel-2);color:var(--ink-soft)}
 .solu .body .pt{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;margin-bottom:9px;color:var(--ink-soft)}
@@ -705,7 +712,7 @@ body.fs-lock{overflow:hidden}
   <div class="topbar">
     <div class="brand">
       <span class="logo mono"><b>TSPG</b> · LOGISALL ENG</span>
-      <span class="tag mono" id="buildTag" title="빌드 시각(UTC)">ENG · v3.0 · b1012.9</span>
+      <span class="tag mono" id="buildTag" title="빌드 시각(UTC)">ENG · v3.0 · b1018.1</span>
     </div>
     <div class="prog" id="prog"></div>
   </div>
@@ -758,7 +765,8 @@ body.fs-lock{overflow:hidden}
               <div class="isys"><b>Stacker Crane AS/RS</b><span>최대 30m급 고단 · 소품종 대량·장기보관</span><div class="ivs"><a class="iv" href="https://youtu.be/MLz6X1eK5no" target="_blank" rel="noopener">▶ 대표 영상</a></div></div>
               <div class="isys"><b>Mini Shuttle · GTP</b><span>박스·토트 단위 · 다품종 피킹 생산성</span><div class="ivs"><a class="iv" href="https://youtu.be/XFRkj8hrS3Y" target="_blank" rel="noopener">▶ 대표 영상</a></div></div>
               <div class="isys"><b>무인지게차 AGF · AMR</b><span>LOGIQ 자율주행 이송 (최대 1.5t) · 단계적 자동화 진입</span><div class="ivs"><a class="iv" href="https://www.youtube.com/shorts/4WLB5J8pMqo" target="_blank" rel="noopener">▶ 쇼츠</a></div></div>
-              <div class="isys"><b>상하차 자동화</b><span>자동 상하차 로봇 · 하역 인력 대체</span><div class="ivs"><a class="iv" href="media/atls.mp4" data-poster="media/atls-poster.webp" target="_blank" rel="noopener">▶ 대표 영상</a><a class="iv" href="https://www.youtube.com/shorts/x_LbCA_UY1s" target="_blank" rel="noopener">▶ 쇼츠</a></div></div>
+              <div class="isys"><b>상하차 자동화</b><span>자동 상하차 플랫폼·갠트리·로봇·RGV · 하역 인력 대체</span><div class="ivs"><a class="iv" href="media/atls-platform.mp4" data-poster="media/atls-platform-poster.webp" data-t="자동 상하차 플랫폼" target="_blank" rel="noopener">▶ 플랫폼</a><a class="iv" href="media/atls-gantry.mp4" data-poster="media/atls-gantry-poster.webp" data-t="자동 상하차 갠트리" target="_blank" rel="noopener">▶ 갠트리</a><a class="iv" href="media/atls-robot.mp4" data-poster="media/atls-robot-poster.webp" data-t="자동 상하차 로봇" target="_blank" rel="noopener">▶ 로봇</a><a class="iv" href="media/atls-rgv.mp4" data-poster="media/atls-rgv-poster.webp" data-t="자동 상하차 RGV" target="_blank" rel="noopener">▶ RGV</a><a class="iv" href="https://www.youtube.com/shorts/x_LbCA_UY1s" target="_blank" rel="noopener">▶ 쇼츠</a></div></div>
+              <div class="isys"><b>파렛트 이적재</b><span>화물은 그대로 · 파렛트만 자동 분리·교체·추가</span><div class="ivs"><a class="iv" href="media/pallet-transfer.mp4" data-poster="media/pallet-transfer-poster.webp" data-t="파렛트 화물 이적재" target="_blank" rel="noopener">▶ 대표 영상</a></div></div>
               <div class="isys"><b>로봇 파렛타이저</b><span>자동 적재·팔레타이징 · 반복 중량작업 자동화</span><div class="ivs"><a class="iv" href="https://www.youtube.com/shorts/q6KXSYNOgjs" target="_blank" rel="noopener">▶ 쇼츠</a></div></div>
               <div class="isys"><b>모노레일</b><span>천장 반송 시스템 · 바닥 동선 간섭 없음</span><div class="ivs"><a class="iv" href="https://www.youtube.com/shorts/EmVdLjH9CdI" target="_blank" rel="noopener">▶ 쇼츠</a></div></div>
               <div class="isys"><b>키오스크</b><span>무인 접수·출고 · 현장 운영 무인화</span><div class="ivs"><a class="iv" href="https://www.youtube.com/shorts/vCLHkuQ_jZI" target="_blank" rel="noopener">▶ 쇼츠</a></div></div>
@@ -3133,9 +3141,10 @@ function renderResult(){
       <div class="top">
         <div class="badge mono">${dk.v==='fit'||dk.v==='cond'?'추천':'참고'} · 로지스올엔지니어링</div>
         <div class="solu-h"><h4>자동 상하차 솔루션</h4>
-          <button class="solu-yt" onclick="openOfficialVideo({src:'media/atls.mp4',poster:'media/atls-poster.webp',t:'자동 상하차 플랫폼'})" title="화면 전체로 재생">▶ 동영상</button></div>
+          <button class="solu-yt" onclick="openAtlsVideo('platform','플랫폼')" title="화면 전체로 재생">▶ 동영상</button></div>
       </div>
-      <div class="atls-types">${ATLS_TYPES.map(([k,n])=>`<figure><img src="img/${k}.webp" alt="${n}" loading="lazy"><figcaption>${n}</figcaption></figure>`).join('')}</div>
+      <div class="atls-types">${ATLS_TYPES.map(([k,n])=>`<figure onclick="openAtlsVideo('${k}','${n}')" title="${n} 영상 재생"><img src="img/${k}.webp" alt="${n}" loading="lazy"><span class="play">▶</span><figcaption>${n}</figcaption></figure>`).join('')}</div>
+      <div class="atls-more"><button onclick="openOfficialVideo({src:'media/pallet-transfer.mp4',poster:'media/pallet-transfer-poster.webp',t:'파렛트 화물 이적재'})">▶ 파렛트 화물 이적재 영상</button></div>
       <div class="body">${ATLS_PTS.map(p=>`<div class="pt"><span class="ck">✓</span><span>${p[0]}<b>${p[1]}</b></span></div>`).join('')}</div>
     </div>`;
 
@@ -5888,9 +5897,13 @@ document.addEventListener("click",e=>{
   const mp4=/\.mp4(\?|$)/i.test(a.getAttribute("href")||"");   // 앱에 저장된 영상 (예: 자동 상하차)
   if(!mp4 && !ytId(a.href)) return;
   e.preventDefault();
-  const sys=a.closest(".isys"), t=(sys&&sys.querySelector("b")?sys.querySelector("b").textContent:"")+(/shorts/.test(a.href)?" · 쇼츠":"");
+  const sys=a.closest(".isys"), t=a.dataset.t || ((sys&&sys.querySelector("b")?sys.querySelector("b").textContent:"")+(/shorts/.test(a.href)?" · 쇼츠":""));
   openOfficialVideo(mp4 ? {src:a.getAttribute("href"),poster:a.dataset.poster||"",t} : {url:a.href,t});
 });
+/* 자동 상하차 4가지 방식 영상 (media/atls-*.mp4) */
+function openAtlsVideo(k,n){
+  openOfficialVideo({src:`media/atls-${k}.mp4`,poster:`media/atls-${k}-poster.webp`,t:`자동 상하차 ${n}`});
+}
 /* 닫으면 플레이어째 지워 소리를 멈춘다 */
 function closeOfficialVideo(fromPop){
   const ov=document.getElementById("ytFS"); if(!ov) return;
